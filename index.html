@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Biz Studio — сайты, боты и дизайн для бизнеса</title>
 <meta name="description" content="Biz Studio — лендинги, сайты, боты и фирменный стиль для малого бизнеса Казахстана. От 75 000 ₸, оплата по этапам, серверы в Казахстане.">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#111111">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -468,12 +472,12 @@ section{padding:120px 0}
 .member:hover .portrait{transform:translateY(-8px) rotate(-3deg)}
 .portrait.a{background:radial-gradient(circle at 32% 28%,#c4d4ff,#1E5BFF 60%,#0a2a8a)}
 .portrait.b{background:radial-gradient(circle at 32% 28%,#ffc9c3,#F24A3D 60%,#8f1a12)}
-.cat{position:relative;width:min(250px,62%);margin:0 auto;justify-self:center;align-self:end;transition:transform .5s cubic-bezier(.3,1.3,.5,1);filter:drop-shadow(0 10px 14px rgba(17,17,17,.18))}
+.cat{position:relative;width:min(260px,64%);margin:0 auto;justify-self:center;align-self:end;transition:transform .5s cubic-bezier(.3,1.3,.5,1)}
 .cat img{display:block;width:100%;height:auto}
 .cat svg{position:absolute;inset:20;width:100%;height:100%;pointer-events:none}
 .cat .pupil{transition:transform .22s cubic-bezier(.2,.7,.2,1)}
-.member:hover .cat{transform:translateY(-6px)}
-.member .vis{align-items:end;padding-top:24px}
+.member:hover .cat{transform:translateY(-4px)}
+.member .vis{align-items:end;padding-top:24px;overflow:hidden}
 .hint{position:absolute;left:16px;bottom:16px}
 .member .body{padding:28px}
 .member h3{font-size:28px;letter-spacing:-.035em;font-weight:600;margin:12px 0 6px}
@@ -1114,7 +1118,7 @@ footer{padding:0 0 40px}
       <div><h4>Разделы</h4><ul><li><a href="#services">Услуги</a></li><li><a href="#prices">Цены</a></li><li><a href="#process">Процесс</a></li><li><a href="#support">Поддержка</a></li><li><a href="#faq">FAQ</a></li></ul></div>
       <div><h4>Контакты</h4><ul><li><a href="https://t.me/moustachelik">Telegram @moustachelik</a></li><li><a href="https://wa.me/77071384323">WhatsApp +7 707 138 43 23</a></li></ul></div>
     </div>
-    <div class="copy"><span>© 2026 Biz Studio · bizstudio.kz</span><span>Серверы в Казахстане · Hoster.kz</span></div>
+    <div class="copy"><span>© 2026 Biz Studio · bizstudio.dev</span><span>Серверы в Казахстане · Hoster.kz</span></div>
   </div>
 </footer>
 
@@ -1401,15 +1405,17 @@ footer{padding:0 0 40px}
   (() => {
     // eyes: [centre x, centre y, iris radius] in the image's own pixels
     const CATS = {
-      ginger:{ src:'img/cat-orange.png', w:795, h:889, iris:['#8FB65F', '#4F7334'], eyes:[[330, 394, 49], [567, 418, 46]] },
-      black:{ src:'img/cat-black.png', w:766, h:849, iris:['#7DB2E8', '#3A6594'], eyes:[[217, 389, 51], [449, 420, 52]] },
+      ginger:{ src:'img/cat-orange.png', w:888, h:873, iris:['#8FB65F', '#4F7334'], eyes:[[315, 379, 52, 46], [553, 402, 48, 43]] },
+      black:{ src:'img/cat-black.png', w:772, h:835, iris:['#7DB2E8', '#3A6594'], eyes:[[239, 386, 48, 38], [472, 420, 51, 34]] },
     };
-    const PR = 31;
     const cats = $$('.cat').map(el => {
       const k = el.dataset.cat, c = CATS[k];
-      const eyes = c.eyes.map(([x, y, r], i) => `<clipPath id="ce-${k}-${i}"><circle cx="${x}" cy="${y}" r="${r}"/></clipPath>
-        <g clip-path="url(#ce-${k}-${i})"><circle cx="${x}" cy="${y}" r="${r}" fill="url(#ir-${k})"/>
-        <g class="pupil" data-max="${r - PR - 2}"><circle cx="${x}" cy="${y}" r="${PR}" fill="#0b0b0f"/><circle cx="${x + 12}" cy="${y - 13}" r="8" fill="#fff"/><circle cx="${x - 12}" cy="${y + 14}" r="4" fill="#fff" opacity=".55"/></g></g>`).join('');
+      const eyes = c.eyes.map(([x, y, rx, ry], i) => {
+        const pr = Math.round(Math.min(rx, ry) * .68), hl = Math.max(4, pr * .26);
+        return `<clipPath id="ce-${k}-${i}"><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}"/></clipPath>
+        <g clip-path="url(#ce-${k}-${i})"><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="url(#ir-${k})"/>
+        <g class="pupil" data-mx="${Math.max(0, rx - pr - 2)}" data-my="${Math.max(0, ry - pr - 2)}"><circle cx="${x}" cy="${y}" r="${pr}" fill="#0b0b0f"/><circle cx="${x + pr * .38}" cy="${y - pr * .4}" r="${hl}" fill="#fff"/><circle cx="${x - pr * .38}" cy="${y + pr * .44}" r="${hl / 2}" fill="#fff" opacity=".55"/></g></g>`;
+      }).join('');
       el.innerHTML = `<img src="${c.src}" alt="" width="${c.w}" height="${c.h}"><svg viewBox="0 0 ${c.w} ${c.h}" aria-hidden="true"><defs><radialGradient id="ir-${k}" cx=".5" cy=".58" r=".62"><stop offset=".4" stop-color="${c.iris[0]}"/><stop offset="1" stop-color="${c.iris[1]}"/></radialGradient></defs>${eyes}</svg>`;
       return { el, pupils:$$('.pupil', el) };
     });
@@ -1422,7 +1428,7 @@ footer{padding:0 0 40px}
         const dist = Math.hypot(dx, dy) || 1;
         // full attention nearby, fading back to neutral as the pointer moves away
         const fade = clamp(1 - (dist - r.width * 2) / (r.width * 2.5)), reach = clamp(dist / (r.width * .5)) * fade;
-        pupils.forEach(p => { const m = +p.dataset.max * reach; p.style.transform = `translate(${dx / dist * m}px,${dy / dist * m}px)`; });
+        pupils.forEach(p => p.style.transform = `translate(${dx / dist * p.dataset.mx * reach}px,${dy / dist * p.dataset.my * reach}px)`);
       });
     }, { passive:true });
     document.documentElement.addEventListener('pointerleave', rest);
