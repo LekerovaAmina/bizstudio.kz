@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biz Studio — сайты, боты и дизайн для бизнеса</title>
+<meta name="description" content="Biz Studio — лендинги, сайты, боты и фирменный стиль для малого бизнеса Казахстана. От 75 000 ₸, оплата по этапам, серверы в Казахстане.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF; --grey:#EDEDED; --ink:#111111;
+  --coral:#F24A3D; --blue:#1E5BFF; --orange:#FFA62B;
+  --g1:#FF4D8D; --g2:#FF6A3D; --g3:#FFB347; --g4:#D9D36A;
+
+  --bg:var(--grey); --card:var(--white); --text:var(--ink);
+  --muted:rgba(17,17,17,.6); --line:rgba(17,17,17,.14); --line-strong:rgba(17,17,17,.9);
+  --chip:rgba(17,17,17,.05);
+  --radius:6px;
+  --pad:clamp(20px,4vw,56px);
+  --font:"Inter Tight",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+:root[data-theme="dark"]{
+  --bg:#111111; --card:#181818; --text:#FFFFFF;
+  --muted:rgba(255,255,255,.62); --line:rgba(255,255,255,.14); --line-strong:rgba(255,255,255,.9);
+  --chip:rgba(255,255,255,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;overflow-x:hidden}
+a{color:inherit}
+img,svg{display:block;max-width:100%}
+button,input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- header ---------- */
+.hdr{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--line);transition:background .3s}
+.hdr-in{max-width:1440px;margin:0 auto;padding:0 var(--pad);height:64px;display:flex;align-items:center;gap:32px}
+.logo{display:flex;align-items:baseline;gap:0;text-decoration:none;font-weight:600;font-size:21px;letter-spacing:-.04em;white-space:nowrap}
+.logo .dot{display:inline-block;width:.32em;height:.32em;background:var(--coral);margin:0 .08em;transform:translateY(-.02em)}
+.logo .light{font-weight:400}
+.nav{display:flex;gap:26px;margin-left:auto}
+.nav a{text-decoration:none;font-size:14px;color:var(--muted);transition:color .2s}
+.nav a:hover{color:var(--text)}
+.hdr-actions{display:flex;align-items:center;gap:10px}
+.theme-btn{width:38px;height:38px;border:1px solid var(--line);background:transparent;border-radius:50%;cursor:pointer;display:grid;place-items:center}
+.theme-btn svg{width:16px;height:16px}
+.theme-btn .moon{display:none}
+:root[data-theme="dark"] .theme-btn .sun{display:none}
+:root[data-theme="dark"] .theme-btn .moon{display:block}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:var(--radius);border:0;cursor:pointer;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
+.btn-coral{background:var(--coral);color:var(--ink)}
+.btn-coral:hover{background:var(--ink);color:var(--white)}
+:root[data-theme="dark"] .btn-coral:hover{background:var(--white);color:var(--ink)}
+.btn-white{background:var(--white);color:var(--ink)}
+.btn-white:hover{background:var(--ink);color:var(--white)}
+.btn-lg{padding:16px 26px;font-size:16px}
+.burger{display:none;width:38px;height:38px;border:1px solid var(--line);background:transparent;border-radius:50%;cursor:pointer;place-items:center}
+.burger span,.burger span::before,.burger span::after{display:block;width:14px;height:1.5px;background:var(--text);position:relative;transition:transform .2s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0}
+.burger span::before{top:-5px}.burger span::after{top:5px}
+.mnav{display:none}
+
+/* ---------- slides ---------- */
+main{max-width:1440px;margin:0 auto;padding:16px var(--pad) 0;display:flex;flex-direction:column;gap:16px}
+.slide{background:var(--card);border-radius:var(--radius);padding:var(--pad);position:relative;transition:background .3s}
+.meta{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;font-size:12px;letter-spacing:.02em;color:var(--muted);padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:clamp(28px,4vw,56px)}
+.meta b{font-weight:500;color:var(--text);text-transform:uppercase;letter-spacing:.08em}
+.meta .r{display:flex;gap:24px}
+.grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,4vw,64px)}
+.h2{font-size:clamp(44px,7.4vw,124px);font-weight:400;line-height:.94;letter-spacing:-.045em}
+.grid .h2{font-size:clamp(40px,5.2vw,96px)}
+.h3{font-size:clamp(26px,2.6vw,38px);font-weight:400;line-height:1.05;letter-spacing:-.03em}
+.note{font-size:15px;line-height:1.5;max-width:44ch;color:var(--muted);margin-top:24px}
+.note::before{content:"NOTE:";display:block;font-size:11px;letter-spacing:.1em;color:var(--text);font-weight:500;margin-bottom:6px}
+.label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ph{color:var(--muted);font-style:normal;border-bottom:1px dashed var(--line-strong);opacity:.85}
+
+/* line reveal */
+.ln{display:block;overflow:hidden;padding-bottom:.06em}
+.ln > span{display:block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.1,1)}
+.in .ln > span{transform:none}
+.in .ln:nth-child(2) > span{transition-delay:.08s}
+.in .ln:nth-child(3) > span{transition-delay:.16s}
+.fade{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease}
+.fade.in{opacity:1;transform:none}
+
+/* ---------- hero ---------- */
+.hero{padding:0;overflow:hidden;min-height:calc(100svh - 96px);display:flex;flex-direction:column;color:var(--white);isolation:isolate;background:var(--g2)}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:
+  radial-gradient(60% 70% at 20% 30%,var(--g1) 0%,transparent 60%),
+  radial-gradient(55% 60% at 80% 20%,var(--g3) 0%,transparent 60%),
+  radial-gradient(70% 70% at 70% 90%,var(--g4) 0%,transparent 60%),
+  linear-gradient(120deg,var(--g1),var(--g2) 40%,var(--g3) 75%,var(--g4));
+  background-size:200% 200%;animation:flow 14s ease-in-out infinite alternate}
+.blob{position:absolute;border-radius:50%;filter:blur(2px);z-index:-1;pointer-events:none}
+.blob.b1{width:min(62vw,820px);aspect-ratio:1;right:-8%;top:8%;
+  background:radial-gradient(circle at 35% 30%,#FFFFFF 0%,var(--g3) 18%,var(--g2) 46%,var(--g1) 70%,var(--blue) 100%);
+  box-shadow:-40px 60px 120px rgba(30,91,255,.45), inset -60px -80px 120px rgba(30,91,255,.55);
+  animation:float 12s ease-in-out infinite alternate}
+.blob.b2{width:min(26vw,320px);aspect-ratio:1;left:38%;bottom:-6%;
+  background:radial-gradient(circle at 40% 30%,#FFFFFF 0%,var(--g4) 25%,var(--g3) 55%,var(--g2) 100%);
+  box-shadow:inset -30px -40px 70px rgba(30,91,255,.4), 0 30px 80px rgba(30,91,255,.3);
+  animation:float 10s ease-in-out infinite alternate-reverse}
+.hero-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(17,17,17,.42) 0%,rgba(17,17,17,.18) 45%,transparent 70%),linear-gradient(0deg,rgba(17,17,17,.35),transparent 45%)}
+@keyframes flow{0%{background-position:0% 30%}100%{background-position:100% 70%}}
+@keyframes float{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-4%,5%) scale(1.06)}}
+.hero-top,.hero-bot{display:flex;justify-content:space-between;gap:16px;font-size:12px;letter-spacing:.04em;padding:var(--pad);padding-bottom:0}
+.hero-bot{padding-top:0;padding-bottom:var(--pad);align-items:flex-end}
+.hero-body{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:var(--pad)}
+.hero h1{font-size:clamp(56px,11.2vw,184px);font-weight:400;line-height:.9;letter-spacing:-.05em;max-width:12ch}
+.hero-sub{display:flex;flex-wrap:wrap;gap:24px 48px;align-items:flex-end;justify-content:space-between;margin-top:clamp(24px,3vw,40px)}
+.hero-sub p{font-size:clamp(16px,1.4vw,20px);line-height:1.4;max-width:46ch}
+.hero-link{font-size:18px;font-weight:500;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px;white-space:nowrap}
+.hero-link:hover{border-color:transparent}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.7)}
+.btn-ghost:hover{background:var(--white);color:var(--ink)}
+
+/* ---------- about ---------- */
+.logo-card{border:1px solid var(--line);border-radius:var(--radius);min-height:340px;display:grid;place-items:center;position:relative;padding:48px 24px}
+.logo-big{font-size:clamp(48px,7vw,112px);font-weight:600;letter-spacing:-.05em;display:flex;align-items:baseline;line-height:1}
+.logo-big .dot{display:inline-block;width:.3em;height:.3em;background:var(--coral);margin:0 .06em}
+.logo-big .light{font-weight:400}
+.callout{position:absolute;font-size:11px;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:8px}
+.callout::before{content:"";width:28px;height:1px;background:var(--line-strong)}
+.callout.c1{top:20px;left:20px}
+.callout.c2{bottom:20px;left:20px}
+.callout.c3{top:20px;right:20px;flex-direction:row-reverse}
+.callout.c3::before{width:28px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.tile{aspect-ratio:16/10;border-radius:var(--radius);display:grid;place-items:center;font-size:clamp(22px,2.6vw,36px);font-weight:600;letter-spacing:-.05em;transition:filter .3s,background .3s}
+.tile .dot{display:inline-block;width:.3em;height:.3em;margin:0 .06em;background:currentColor}
+.tile .light{font-weight:400}
+.tile.coral{background:var(--coral);color:var(--ink)}
+.tile.blue{background:var(--blue);color:var(--white)}
+.tile.grad{background:linear-gradient(135deg,var(--g1),var(--g2) 40%,var(--g3) 75%,var(--g4));color:var(--white)}
+.tile.white{background:var(--white);color:var(--ink);border:1px solid var(--line)}
+.tile.coral .dot{background:var(--white)} .tile.white .dot{background:var(--coral)} .tile.blue .dot{background:var(--orange)}
+.tile:hover{filter:saturate(1.15) brightness(1.04)}
+
+/* ---------- services ---------- */
+.svc{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-strong)}
+.svc-item{padding:28px 28px 32px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:14px;min-height:280px;position:relative;transition:background .3s}
+.svc-item:not(:nth-child(3n+1)){padding-left:28px;border-left:1px solid var(--line)}
+.svc-item .num{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted)}
+.swatch{width:14px;height:14px;border-radius:2px}
+.svc-item p{color:var(--muted);font-size:15px;max-width:34ch}
+.svc-item .price{margin-top:auto;font-size:22px;letter-spacing:-.02em}
+.svc-item .price small{font-size:13px;color:var(--muted);margin-right:4px}
+.svc-item::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.svc-item:hover::after{transform:scaleX(1)}
+
+/* ---------- pricing ---------- */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.plan{border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;gap:20px;position:relative;transition:background .3s}
+.plan:hover{background:var(--chip)}
+.plan.pop{border-color:var(--coral);border-width:2px}
+.badge{position:absolute;top:-1px;right:24px;transform:translateY(-50%);background:var(--coral);color:var(--ink);font-size:11px;font-weight:600;letter-spacing:.1em;padding:5px 10px;border-radius:3px}
+.plan .price{font-size:clamp(40px,4.4vw,64px);letter-spacing:-.05em;line-height:1}
+.plan .price small{font-size:15px;letter-spacing:0;color:var(--muted);display:block;margin-bottom:6px}
+.plan ul{list-style:none;border-top:1px solid var(--line)}
+.plan li{padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;display:flex;gap:10px}
+.plan li::before{content:"";width:6px;height:6px;margin-top:8px;flex:none;background:var(--accent,var(--coral))}
+.plan .old{font-size:13px;color:var(--muted)}
+.plan .old s{opacity:.8}
+.plan .btn{margin-top:auto;justify-content:center}
+.btn-line{background:transparent;border:1px solid var(--line-strong);color:var(--text)}
+.btn-line:hover{background:var(--text);color:var(--card)}
+.extra{margin-top:24px;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 28px}
+
+/* ---------- process ---------- */
+.scale{border-radius:var(--radius);overflow:hidden}
+.step{display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:center;padding:22px 24px;min-height:84px;transition:padding .3s}
+.step .n{font-size:13px;opacity:.75}
+.step .t{font-size:clamp(18px,1.8vw,24px);letter-spacing:-.02em}
+.step .pay{font-size:14px;font-weight:600;white-space:nowrap}
+.step:nth-child(1){background:color-mix(in srgb,var(--coral) 10%,var(--card));color:var(--text)}
+.step:nth-child(2){background:color-mix(in srgb,var(--coral) 30%,var(--card));color:var(--text)}
+.step:nth-child(3){background:color-mix(in srgb,var(--coral) 55%,var(--card));color:var(--ink)}
+.step:nth-child(4){background:color-mix(in srgb,var(--coral) 80%,var(--card));color:var(--ink)}
+.step:nth-child(5){background:var(--coral);color:var(--ink)}
+.step:hover{padding-left:32px}
+.tools{margin-top:32px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tools .label{margin-right:12px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:7px 12px 7px 8px;border:1px solid var(--line);border-radius:3px;font-size:13px}
+.chip i{width:12px;height:12px;border-radius:2px;display:block}
+
+/* ---------- cases ---------- */
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.case{border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:18px;text-decoration:none;transition:background .3s}
+.case:hover{background:var(--chip)}
+.frame{border-radius:4px;overflow:hidden;border:1px solid var(--line);background:var(--grey);position:relative}
+:root[data-theme="dark"] .frame{background:#222}
+.frame-bar{display:flex;gap:6px;padding:9px 12px;background:var(--card);border-bottom:1px solid var(--line)}
+.frame-bar i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.shot{aspect-ratio:16/10;display:grid;place-items:center;position:relative;color:var(--muted);font-size:13px}
+.shot .grid-lines{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:40px 40px;opacity:.6}
+.shot span{position:relative;background:var(--card);padding:6px 10px;border-radius:3px}
+.plaque{position:absolute;left:16px;bottom:16px;padding:8px 12px;font-size:12px;font-weight:600;letter-spacing:.1em;border-radius:3px}
+.case-info{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:0 4px 4px}
+.case-info .h3{margin:6px 0 10px}
+.case-info .stack{font-size:13px;color:var(--muted)}
+.more{font-size:14px;font-weight:500;white-space:nowrap;border-bottom:1px solid currentColor}
+
+/* ---------- why ---------- */
+.why{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.why-t{border-radius:var(--radius);padding:clamp(24px,3vw,40px);min-height:250px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;transition:filter .3s}
+.why-t:hover{filter:saturate(1.15) brightness(1.04)}
+.why-t .n{font-size:12px;opacity:.75;display:flex;justify-content:space-between}
+.why-t p{font-size:15px;max-width:38ch;opacity:.85}
+.why-t.coral{background:var(--coral);color:var(--ink)}
+.why-t.blue{background:var(--blue);color:var(--white)}
+.why-t.grad{background:linear-gradient(135deg,var(--g1),var(--g2) 40%,var(--g3) 75%,var(--g4));color:var(--ink)}
+.why-t.white{background:var(--card);border:1px solid var(--line)}
+
+/* ---------- team ---------- */
+.team{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.member{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.photo{aspect-ratio:4/3;display:grid;place-items:center;position:relative;font-size:13px;color:var(--white)}
+.photo.p1{background:linear-gradient(160deg,var(--blue),#5c86ff 60%,var(--g3))}
+.photo.p2{background:linear-gradient(160deg,var(--coral),var(--g1) 50%,var(--orange))}
+.photo .ini{font-size:clamp(64px,8vw,120px);font-weight:300;letter-spacing:-.05em;opacity:.9}
+.photo .hint{position:absolute;bottom:12px;left:12px;background:rgba(17,17,17,.55);padding:5px 9px;border-radius:3px;font-size:11px;letter-spacing:.04em}
+.member-body{padding:24px;display:flex;flex-direction:column;gap:10px}
+.member-body .role{color:var(--muted);font-size:15px}
+.member-body .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+
+/* ---------- support ---------- */
+.sup{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-strong)}
+.sup-col{padding:28px 28px 32px 0;display:flex;flex-direction:column;gap:18px}
+.sup-col + .sup-col{padding-left:28px;border-left:1px solid var(--line)}
+.sup-col .price{font-size:clamp(32px,3.4vw,48px);letter-spacing:-.04em;line-height:1}
+.sup-col .price small{font-size:14px;color:var(--muted);letter-spacing:0}
+.sup-col ul{list-style:none}
+.sup-col li{padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;display:flex;justify-content:space-between;gap:12px}
+.sup-col li span:last-child{text-align:right}
+.sup-col li span:first-child{color:var(--muted)}
+.sup-col .for{font-size:14px;color:var(--muted)}
+
+/* ---------- faq ---------- */
+.faq{border-top:1px solid var(--line-strong)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:22px 0;font-size:clamp(18px,1.8vw,24px);letter-spacing:-.02em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{width:28px;height:28px;flex:none;border:1px solid var(--line);border-radius:50%;position:relative;transition:transform .3s,background .3s}
+.faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:1.5px;background:var(--text);transform:translate(-50%,-50%)}
+.faq summary .pm::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .3s}
+.faq details[open] .pm{background:var(--coral);border-color:var(--coral)}
+.faq details[open] .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.faq details[open] .pm::before,.faq details[open] .pm::after{background:var(--ink)}
+.faq .ans{padding:0 0 24px;color:var(--muted);max-width:60ch;font-size:16px}
+
+/* ---------- cta ---------- */
+.cta{background:var(--coral);color:var(--ink);overflow:hidden;min-height:440px;display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.cta .meta{border-color:rgba(17,17,17,.25);color:rgba(17,17,17,.7)}
+.cta .meta b{color:var(--ink)}
+.cta-pattern{position:absolute;inset:0;pointer-events:none;opacity:.22;background-image:
+  radial-gradient(circle,var(--ink) 1.2px,transparent 1.6px);background-size:28px 28px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 30%,#000);mask-image:linear-gradient(90deg,transparent 30%,#000)}
+.cta-pattern::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 55px,rgba(17,17,17,.6) 55px 56px)}
+.cta h2{font-size:clamp(44px,8vw,136px);font-weight:500;line-height:.92;letter-spacing:-.045em;text-transform:uppercase;position:relative;max-width:14ch}
+.cta-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;position:relative}
+.cta-row p{max-width:40ch;font-size:16px}
+
+/* ---------- form ---------- */
+form{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line-strong)}
+.field{display:grid;grid-template-columns:200px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:start}
+.field > .label{padding-top:12px}
+.inp{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;padding:10px 0;font-size:18px;outline:0;transition:border-color .2s;border-radius:0}
+.inp:focus{border-color:var(--blue)}
+textarea.inp{resize:vertical;min-height:84px}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.ck input{position:absolute;opacity:0;pointer-events:none}
+.ck span{display:inline-block;padding:9px 14px;border:1px solid var(--line);border-radius:3px;font-size:14px;cursor:pointer;transition:background .2s,border-color .2s,color .2s;user-select:none}
+.ck:hover span{border-color:var(--line-strong)}
+.ck input:checked + span{background:var(--text);color:var(--card);border-color:var(--text)}
+.ck input:focus-visible + span{outline:2px solid var(--blue);outline-offset:2px}
+.consent{display:flex;gap:12px;align-items:flex-start;padding:20px 0;font-size:14px;color:var(--muted);cursor:pointer}
+.consent input{width:18px;height:18px;margin-top:1px;accent-color:var(--coral);flex:none}
+.form-foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:8px}
+.err{color:var(--coral);font-size:13px;min-height:1.2em}
+.thanks{display:none;padding:56px 0;border-top:1px solid var(--line-strong)}
+.thanks.show{display:block}
+.thanks .h2{font-size:clamp(40px,6vw,96px)}
+.inp.bad{border-color:var(--coral)}
+
+/* ---------- footer ---------- */
+footer{max-width:1440px;margin:0 auto;padding:16px var(--pad) 24px}
+.foot{background:var(--card);border-radius:var(--radius);padding:var(--pad);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;transition:background .3s}
+.foot h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:14px}
+.foot ul{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:15px}
+.foot a{text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.foot .req{font-size:14px;color:var(--muted);margin-top:16px;line-height:1.6}
+.foot-bot{grid-column:1/-1;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;font-size:12px;color:var(--muted);gap:16px;flex-wrap:wrap}
+.foot .logo{font-size:30px}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .nav{display:none}
+  .burger{display:grid}
+  .hdr-actions{margin-left:auto}
+  .hdr .btn-coral{display:none}
+  .mnav{display:block;position:fixed;top:64px;left:0;right:0;background:var(--card);border-bottom:1px solid var(--line);padding:8px var(--pad) 20px;transform:translateY(-8px);opacity:0;visibility:hidden;transition:.25s;z-index:49}
+  .mnav.open{transform:none;opacity:1;visibility:visible}
+  .mnav a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;font-size:20px;letter-spacing:-.02em}
+  .mnav .btn{margin-top:16px;width:100%;justify-content:center}
+  .svc{grid-template-columns:1fr 1fr}
+  .svc-item:not(:nth-child(3n+1)){padding-left:0;border-left:0}
+  .svc-item:nth-child(2n){padding-left:28px;border-left:1px solid var(--line)}
+  .foot{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .grid{grid-template-columns:1fr}
+  .plans,.sup,.cases,.team{grid-template-columns:1fr}
+  .sup-col + .sup-col{padding-left:0;border-left:0;border-top:1px solid var(--line-strong)}
+  .field{grid-template-columns:1fr;gap:4px}
+  .field > .label{padding-top:0}
+  .plan{padding:24px}
+}
+@media (max-width:600px){
+  .hdr-in{gap:12px}
+  .svc{grid-template-columns:1fr}
+  .svc-item,.svc-item:nth-child(2n){padding-left:0;border-left:0;min-height:0}
+  .why{grid-template-columns:1fr}
+  .why-t{min-height:200px}
+  .hero h1{font-size:clamp(52px,15vw,72px)}
+  .h2{font-size:clamp(44px,13vw,64px)}
+  .meta .r span:first-child{display:none}
+  .step{grid-template-columns:40px 1fr;row-gap:4px}
+  .step .pay{grid-column:2}
+  .hero-top span:nth-child(2){display:none}
+  .foot{grid-template-columns:1fr}
+  .callout.c3{display:none}
+  .blob.b1{width:110vw;right:-50%;top:4%}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .ln > span,.fade{transform:none;opacity:1}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <a href="#top" class="logo" aria-label="Biz Studio — на главную">biz<span class="dot"></span><span class="light">studio</span></a>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="#services">Услуги</a>
+      <a href="#prices">Цены</a>
+      <a href="#process">Процесс</a>
+      <a href="#cases">Кейсы</a>
+      <a href="#team">Команда</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="hdr-actions">
+      <button class="theme-btn" id="themeBtn" aria-label="Переключить тему">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <a href="#form" class="btn btn-coral">Обсудить проект</a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span></button>
+    </div>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Мобильное меню">
+    <a href="#services">Услуги</a>
+    <a href="#prices">Цены</a>
+    <a href="#process">Процесс</a>
+    <a href="#cases">Кейсы</a>
+    <a href="#team">Команда</a>
+    <a href="#faq">FAQ</a>
+    <a href="#form" class="btn btn-coral btn-lg">Обсудить проект</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- 01 HERO -->
+  <section class="slide hero" aria-label="Biz Studio">
+    <div class="hero-bg"></div>
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="hero-shade"></div>
+    <div class="hero-top"><span>NOTE: серверы в Казахстане</span><span>bizstudio.kz</span><span>2026 · 01/12</span></div>
+    <div class="hero-body">
+      <h1 class="reveal"><span class="ln"><span>Сайты и боты</span></span><span class="ln"><span>для вашего</span></span><span class="ln"><span>бизнеса</span></span></h1>
+      <div class="hero-sub fade">
+        <p>Лендинги, сайты, боты и фирменный стиль для малого бизнеса Казахстана. От&nbsp;75&nbsp;000&nbsp;₸, оплата по этапам, всё оформлено на вас.</p>
+        <div class="hero-ctas">
+          <a href="#form" class="btn btn-white btn-lg">Оставить заявку →</a>
+          <a href="https://t.me/" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">Написать в Telegram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 ABOUT -->
+  <section class="slide" id="about">
+    <div class="meta"><b>О студии</b><div class="r"><span>Біз — «мы» + business</span><span>02/12</span><span>2026</span></div></div>
+    <div class="grid">
+      <div>
+        <h2 class="h2 reveal"><span class="ln"><span>Дизайн</span></span><span class="ln"><span>и код в одних</span></span><span class="ln"><span>руках</span></span></h2>
+        <p class="note fade">Мы — команда из двух человек. Одна отвечает за разработку и запуск, другая — за дизайн, ботов и документацию. Работаем быстро благодаря AI-инструментам, но каждый проект проверяем вручную.</p>
+      </div>
+      <div class="fade">
+        <div class="logo-card">
+          <span class="callout c1">гротеск Inter Tight</span>
+          <span class="callout c3">коралловый акцент</span>
+          <span class="callout c2">сетка 12 колонок</span>
+          <div class="logo-big">biz<span class="dot"></span><span class="light">studio</span></div>
+        </div>
+        <div class="tiles">
+          <div class="tile coral">biz<span class="dot"></span><span class="light">studio</span></div>
+          <div class="tile blue">biz<span class="dot"></span><span class="light">studio</span></div>
+          <div class="tile grad">biz<span class="dot"></span><span class="light">studio</span></div>
+          <div class="tile white">biz<span class="dot"></span><span class="light">studio</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 SERVICES -->
+  <section class="slide" id="services">
+    <div class="meta"><b>Услуги</b><div class="r"><span>Цена «от», точная — после ТЗ</span><span>03/12</span><span>2026</span></div></div>
+    <h2 class="h2 reveal" style="margin-bottom:clamp(32px,4vw,56px)"><span class="ln"><span>Что мы делаем</span></span></h2>
+    <div class="svc">
+      <article class="svc-item fade" style="--accent:var(--coral)"><div class="num"><span>01</span><i class="swatch" style="background:var(--coral)"></i></div><h3 class="h3">Лендинги</h3><p>Простые и анимированные, заявки сразу в Telegram. Макет в Figma, адаптив, подключение домена.</p><div class="price"><small>от</small>75 000 ₸</div></article>
+      <article class="svc-item fade" style="--accent:var(--blue)"><div class="num"><span>02</span><i class="swatch" style="background:var(--blue)"></i></div><h3 class="h3">Сайты для бизнеса</h3><p>До 6 страниц, админка для контента и заявок, база PostgreSQL, деплой на Hoster.kz.</p><div class="price"><small>от</small>260 000 ₸</div></article>
+      <article class="svc-item fade" style="--accent:var(--orange)"><div class="num"><span>03</span><i class="swatch" style="background:var(--orange)"></i></div><h3 class="h3">Веб-сервисы</h3><p>Личные кабинеты, роли пользователей, бизнес-процессы, отчёты в Excel и PDF с диаграммами.</p><div class="price"><small>от</small>450 000 ₸</div></article>
+      <article class="svc-item fade" style="--accent:var(--g1)"><div class="num"><span>04</span><i class="swatch" style="background:var(--g1)"></i></div><h3 class="h3">Боты</h3><p>Telegram, WhatsApp, Instagram: заявки, запись, каталог, рассылки, ответы на частые вопросы.</p><div class="price"><small>от</small>45 000 ₸</div></article>
+      <article class="svc-item fade" style="--accent:var(--g4)"><div class="num"><span>05</span><i class="swatch" style="background:var(--g4)"></i></div><h3 class="h3">Брендинг</h3><p>Логотип, логобук, цвета и типографика, примеры носителей: визитка, пост, сторис, вывеска.</p><div class="price"><small>от</small>40 000 ₸</div></article>
+      <article class="svc-item fade" style="--accent:var(--g2)"><div class="num"><span>06</span><i class="swatch" style="background:var(--g2)"></i></div><h3 class="h3">Рекламный ролик</h3><p>30–40 секунд про ваш сервис: сценарий, анимация интерфейса, музыка. Для Reels и сайта.</p><div class="price"><small>от</small>55 000 ₸</div></article>
+    </div>
+  </section>
+
+  <!-- 04 PRICES -->
+  <section class="slide" id="prices">
+    <div class="meta"><b>Пакеты</b><div class="r"><span>Выгоднее на ~10%</span><span>04/12</span><span>2026</span></div></div>
+    <div class="grid">
+      <div>
+        <h2 class="h2 reveal"><span class="ln"><span>Пакеты</span></span><span class="ln"><span>и цены</span></span></h2>
+        <p class="note fade">Цены — «от», точная сумма после бесплатного ТЗ. Домен и хостинг оплачиваются отдельно, напрямую провайдеру.</p>
+      </div>
+      <div>
+        <div class="plans">
+          <article class="plan fade" style="--accent:var(--blue)">
+            <div><div class="label">Запуск</div></div>
+            <div class="price"><small>от</small>145 000 ₸</div>
+            <ul><li>Логотип</li><li>Лендинг «Старт» на Tilda</li><li>Telegram-бот для заявок</li></ul>
+            <div class="old">По отдельности <s>160 000 ₸</s></div>
+            <a href="#form" class="btn btn-line" data-pick="Пакет «Запуск»">Выбрать</a>
+          </article>
+          <article class="plan pop fade" style="--accent:var(--coral)">
+            <span class="badge">ПОПУЛЯРНЫЙ</span>
+            <div><div class="label">Бренд</div></div>
+            <div class="price"><small>от</small>260 000 ₸</div>
+            <ul><li>Логобук и фирменный стиль</li><li>Анимированный лендинг</li><li>Рекламный ролик</li></ul>
+            <div class="old">По отдельности <s>290 000 ₸</s></div>
+            <a href="#form" class="btn btn-coral" data-pick="Пакет «Бренд»">Выбрать</a>
+          </article>
+          <article class="plan fade" style="--accent:var(--orange)">
+            <div><div class="label">Бизнес</div></div>
+            <div class="price"><small>от</small>330 000 ₸</div>
+            <ul><li>Сайт с админкой</li><li>Бот в Telegram или WhatsApp</li><li>Отчёты Excel / PDF</li></ul>
+            <div class="old">По отдельности <s>345–380 000 ₸</s></div>
+            <a href="#form" class="btn btn-line" data-pick="Пакет «Бизнес»">Выбрать</a>
+          </article>
+        </div>
+        <div class="extra fade"><span>Доп. правки — 4 000 ₸/ч</span><span>Срочно, в 2 раза быстрее — +30%</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 PROCESS -->
+  <section class="slide" id="process">
+    <div class="meta"><b>Процесс</b><div class="r"><span>Не работаем в долг — и вы не платите вперёд</span><span>05/12</span><span>2026</span></div></div>
+    <div class="grid">
+      <div>
+        <h2 class="h2 reveal"><span class="ln"><span>Как мы</span></span><span class="ln"><span>работаем</span></span></h2>
+        <p class="note fade">Каждый платёж — перед следующим этапом. Для небольших заказов (лендинг на Tilda, бот, логотип, ролик) — 50% на старте и 50% перед сдачей.</p>
+      </div>
+      <div class="fade">
+        <div class="scale">
+          <div class="step"><span class="n">01</span><span class="t">ТЗ и смета</span><span class="pay">бесплатно</span></div>
+          <div class="step"><span class="n">02</span><span class="t">Дизайн в Figma + адаптивный UI kit</span><span class="pay">предоплата 40%</span></div>
+          <div class="step"><span class="n">03</span><span class="t">Разработка, тестовый адрес</span><span class="pay">40%</span></div>
+          <div class="step"><span class="n">04</span><span class="t">Запуск на серверах Hoster.kz</span><span class="pay">20%</span></div>
+          <div class="step"><span class="n">05</span><span class="t">14 дней бесплатных исправлений</span><span class="pay">0 ₸</span></div>
+        </div>
+        <div class="tools">
+          <span class="label">Инструменты</span>
+          <span class="chip"><i style="background:var(--coral)"></i>Figma</span>
+          <span class="chip"><i style="background:var(--orange)"></i>Tilda</span>
+          <span class="chip"><i style="background:var(--blue)"></i>React</span>
+          <span class="chip"><i style="background:var(--g4)"></i>Node.js</span>
+          <span class="chip"><i style="background:var(--g2)"></i>Django</span>
+          <span class="chip"><i style="background:var(--g3)"></i>Spring Boot</span>
+          <span class="chip"><i style="background:var(--blue)"></i>PostgreSQL</span>
+          <span class="chip"><i style="background:var(--g1)"></i>Claude</span>
+          <span class="chip"><i style="background:var(--ink)"></i>GPT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 CASES -->
+  <section class="slide" id="cases">
+    <div class="meta"><b>Кейсы</b><div class="r"><span>Задача → решение → результат</span><span>06/12</span><span>2026</span></div></div>
+    <h2 class="h2 reveal" style="margin-bottom:clamp(32px,4vw,56px)"><span class="ln"><span>Портфолио</span></span></h2>
+    <div class="cases">
+      <a href="#" class="case fade" aria-label="Кейс 01 — подробнее">
+        <div class="frame">
+          <div class="frame-bar"><i></i><i></i><i></i></div>
+          <div class="shot"><div class="grid-lines"></div><span>[скриншот 1600×1000]</span></div>
+          <div class="plaque" style="background:var(--coral);color:var(--ink)">[СЛОГАН]</div>
+        </div>
+        <div class="case-info">
+          <div><div class="label">Кейс 01 · <span class="ph">[сфера]</span> · <span class="ph">[тип работы]</span></div><h3 class="h3"><span class="ph">[Название]</span></h3><div class="stack"><span class="ph">[Figma, React, Django]</span> · <span class="ph">[2026]</span></div></div>
+          <span class="more">Смотреть кейс →</span>
+        </div>
+      </a>
+      <a href="#" class="case fade" aria-label="Кейс 02 — подробнее">
+        <div class="frame">
+          <div class="frame-bar"><i></i><i></i><i></i></div>
+          <div class="shot"><div class="grid-lines"></div><span>[скриншот 1600×1000]</span></div>
+          <div class="plaque" style="background:var(--blue);color:var(--white)">[СЛОГАН]</div>
+        </div>
+        <div class="case-info">
+          <div><div class="label">Кейс 02 · <span class="ph">[сфера]</span> · <span class="ph">[тип работы]</span></div><h3 class="h3"><span class="ph">[Название]</span></h3><div class="stack"><span class="ph">[стек]</span> · <span class="ph">[2026]</span></div></div>
+          <span class="more">Смотреть кейс →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- 07 WHY -->
+  <section class="slide" id="why">
+    <div class="meta"><b>Почему мы</b><div class="r"><span>Уровень агентства по цене фрилансера</span><span>07/12</span><span>2026</span></div></div>
+    <div class="grid">
+      <div>
+        <h2 class="h2 reveal"><span class="ln"><span>Почему</span></span><span class="ln"><span>мы</span></span></h2>
+        <p class="note fade">Дизайн, разработка и боты в одной команде — не нужно искать трёх фрилансеров. Связь напрямую с исполнителями в Telegram, без менеджеров-посредников.</p>
+      </div>
+      <div class="why">
+        <div class="why-t coral fade"><div class="n"><span>01</span><span>Hoster.kz</span></div><div><h3 class="h3">Серверы в Казахстане</h3><p style="margin-top:10px">Сайты на Hoster.kz — данные ваших клиентов остаются в РК, как требует закон о персональных данных.</p></div></div>
+        <div class="why-t blue fade"><div class="n"><span>02</span><span>Домен · хостинг</span></div><div><h3 class="h3">Всё оформлено на вас</h3><p style="margin-top:10px">Домен и хостинг на ваше имя, вы платите напрямую. Сайт — ваш, а не студии.</p></div></div>
+        <div class="why-t grad fade"><div class="n"><span>03</span><span>Онлайн</span></div><div><h3 class="h3">Прогресс онлайн</h3><p style="margin-top:10px">Личный кабинет со статусом проекта: видно, что сделано и что дальше.</p></div></div>
+        <div class="why-t white fade"><div class="n"><span>04</span><span>ИП</span></div><div><h3 class="h3">По договору</h3><p style="margin-top:10px;color:var(--muted)">Работаем как ИП: договор, акт выполненных работ, документация после сдачи.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 TEAM -->
+  <section class="slide" id="team">
+    <div class="meta"><b>Команда</b><div class="r"><span>Екеу — «вдвоём»</span><span>08/12</span><span>2026</span></div></div>
+    <div class="grid">
+      <div>
+        <h2 class="h2 reveal"><span class="ln"><span>Кто</span></span><span class="ln"><span>за этим</span></span><span class="ln"><span>стоит</span></span></h2>
+        <p class="note fade">Вы общаетесь напрямую с теми, кто делает ваш проект. Никаких аккаунт-менеджеров и испорченного телефона.</p>
+      </div>
+      <div class="team">
+        <article class="member fade">
+          <div class="photo p1"><span class="ini">А</span><span class="hint">[фото]</span></div>
+          <div class="member-body">
+            <div class="label">Разработка и DevOps</div>
+            <h3 class="h3">Амина</h3>
+            <p class="role">ТЗ, фронтенд и бэкенд, CI/CD и деплой.</p>
+            <div class="chips"><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">Django</span><span class="chip">Spring Boot</span></div>
+          </div>
+        </article>
+        <article class="member fade">
+          <div class="photo p2"><span class="ini">?</span><span class="hint">[фото]</span></div>
+          <div class="member-body">
+            <div class="label">Дизайн, боты, документация</div>
+            <h3 class="h3"><span class="ph">[Имя]</span></h3>
+            <p class="role">Макеты, UI kit, брендинг, боты и документация проекта.</p>
+            <div class="chips"><span class="chip">Figma</span><span class="chip">Tilda</span><span class="chip">Telegram / WhatsApp API</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 SUPPORT -->
+  <section class="slide" id="support">
+    <div class="meta"><b>Техподдержка</b><div class="r"><span>Первый месяц «Базового» — в подарок</span><span>09/12</span><span>2026</span></div></div>
+    <div class="grid" style="margin-bottom:clamp(32px,4vw,56px)">
+      <h2 class="h2 reveal"><span class="ln"><span>Поддержка</span></span></h2>
+      <p class="note fade" style="align-self:end">Хостер отвечает за железо и сеть, а обновления, защита и бэкапы — за нами. Хостинг и домен в цену не входят. Оплата за 3 месяца — −5%, за год — −10%.</p>
+    </div>
+    <div class="sup">
+      <div class="sup-col fade">
+        <div class="label">Базовый</div>
+        <div class="price">7 000 ₸ <small>/мес</small></div>
+        <div class="for">Лендинг, который редко меняется</div>
+        <ul><li><span>Правки</span><span>до 2 ч</span></li><li><span>Бэкапы</span><span>раз в неделю</span></li><li><span>Мониторинг, SSL</span><span>✓</span></li><li><span>Ответ</span><span>до 48 ч</span></li></ul>
+      </div>
+      <div class="sup-col fade">
+        <div class="label">Стандарт</div>
+        <div class="price">17 500 ₸ <small>/мес</small></div>
+        <div class="for">Сайт + бот, акции каждый месяц</div>
+        <ul><li><span>Правки</span><span>до 5 ч</span></li><li><span>Бэкапы</span><span>ежедневно</span></li><li><span>Новые блоки, баннеры</span><span>✓</span></li><li><span>Отчёт</span><span>PDF раз в месяц</span></li><li><span>Ответ</span><span>до 24 ч</span></li></ul>
+      </div>
+      <div class="sup-col fade">
+        <div class="label">Бизнес</div>
+        <div class="price">35 000 ₸ <small>/мес</small></div>
+        <div class="for">Сервис с данными и отчётами</div>
+        <ul><li><span>Правки</span><span>до 10 ч</span></li><li><span>Новая страница</span><span>1 в месяц</span></li><li><span>Отчёты</span><span>PDF + Excel</span></li><li><span>Созвон</span><span>30 мин</span></li><li><span>Ответ</span><span>до 4 ч</span></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 FAQ -->
+  <section class="slide" id="faq">
+    <div class="meta"><b>FAQ</b><div class="r"><span>Частые вопросы</span><span>10/12</span><span>2026</span></div></div>
+    <div class="grid">
+      <h2 class="h2 reveal"><span class="ln"><span>Вопросы</span></span></h2>
+      <div class="faq fade">
+        <details><summary>Кто платит за домен и хостинг?<span class="pm"></span></summary><p class="ans">Вы, напрямую Hoster.kz. Всё оформлено на вас — мы помогаем зарегистрироваться и настраиваем сервер. Ориентир: домен .kz ≈ 6 600 ₸/год, сервер — от 3 100 ₸/мес.</p></details>
+        <details><summary>Сколько правок входит?<span class="pm"></span></summary><p class="ans">2 круга правок на дизайн и 14 дней бесплатных исправлений после запуска.</p></details>
+        <details><summary>А если не понравится дизайн?<span class="pm"></span></summary><p class="ans">Дорабатываем в рамках правок. Разработку начинаем только после того, как вы утвердите макет.</p></details>
+        <details><summary>Смогу ли я менять сайт сам?<span class="pm"></span></summary><p class="ans">Да: через Tilda или админку, с инструкцией от нас.</p></details>
+        <details><summary>Сколько длится проект?<span class="pm"></span></summary><p class="ans">Лендинг — 7–10 дней, сайт для бизнеса — 4–6 недель, веб-сервис — от 2 месяцев.</p></details>
+        <details><summary>Работаете по договору?<span class="pm"></span></summary><p class="ans">Да, как ИП: договор и акт выполненных работ. Права на макет и код переходят вам после полной оплаты.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 CTA -->
+  <section class="slide cta">
+    <div class="cta-pattern" aria-hidden="true"></div>
+    <div class="meta" style="position:relative;margin-bottom:0"><b>Начнём?</b><div class="r"><span>ТЗ и смета — бесплатно</span><span>11/12</span><span>2026</span></div></div>
+    <h2 class="reveal"><span class="ln"><span>От идеи</span></span><span class="ln"><span>до запуска —</span></span><span class="ln"><span>вместе</span></span></h2>
+    <div class="cta-row">
+      <p>Расскажите о задаче — пришлём смету и сроки. Созвон и ТЗ ни к чему не обязывают.</p>
+      <a href="#form" class="btn btn-white btn-lg">Оставить заявку →</a>
+    </div>
+  </section>
+
+  <!-- 12 FORM -->
+  <section class="slide" id="form">
+    <div class="meta"><b>Заявка</b><div class="r"><span>Ответим в течение рабочего дня</span><span>12/12</span><span>2026</span></div></div>
+    <div class="grid">
+      <div>
+        <h2 class="h2 reveal"><span class="ln"><span>Обсудим</span></span><span class="ln"><span>проект</span></span></h2>
+        <p class="note fade">Ответим в течение рабочего дня в Telegram или WhatsApp. Пн–пт, 10:00–19:00.</p>
+      </div>
+      <div class="fade">
+        <form id="leadForm" novalidate>
+          <div class="field"><label class="label" for="f-name">Имя</label><input class="inp" id="f-name" name="name" autocomplete="name" required placeholder="Как к вам обращаться"></div>
+          <div class="field"><label class="label" for="f-contact">Телефон или Telegram</label><input class="inp" id="f-contact" name="contact" required placeholder="+7 ___ ___ __ __ или @username"></div>
+          <div class="field" role="group" aria-labelledby="l-need"><span class="label" id="l-need">Что нужно</span>
+            <div class="checks">
+              <label class="ck"><input type="checkbox" name="need" value="Лендинг"><span>Лендинг</span></label>
+              <label class="ck"><input type="checkbox" name="need" value="Сайт"><span>Сайт</span></label>
+              <label class="ck"><input type="checkbox" name="need" value="Сервис"><span>Сервис</span></label>
+              <label class="ck"><input type="checkbox" name="need" value="Бот"><span>Бот</span></label>
+              <label class="ck"><input type="checkbox" name="need" value="Брендинг"><span>Брендинг</span></label>
+              <label class="ck"><input type="checkbox" name="need" value="Ролик"><span>Ролик</span></label>
+            </div>
+          </div>
+          <div class="field" role="radiogroup" aria-labelledby="l-budget"><span class="label" id="l-budget">Бюджет</span>
+            <div class="checks">
+              <label class="ck"><input type="radio" name="budget" value="до 100 000"><span>до 100 000 ₸</span></label>
+              <label class="ck"><input type="radio" name="budget" value="100–300 000"><span>100–300 000 ₸</span></label>
+              <label class="ck"><input type="radio" name="budget" value="больше 300 000"><span>больше 300 000 ₸</span></label>
+            </div>
+          </div>
+          <div class="field"><label class="label" for="f-msg">Комментарий</label><textarea class="inp" id="f-msg" name="msg" placeholder="Коротко о задаче или ссылка на сайты, которые нравятся"></textarea></div>
+          <label class="consent"><input type="checkbox" id="f-consent" required><span>Согласен(на) на обработку персональных данных в соответствии с <a href="#">политикой конфиденциальности</a></span></label>
+          <div class="form-foot">
+            <span class="err" id="formErr" role="alert"></span>
+            <button type="submit" class="btn btn-coral btn-lg">Отправить заявку →</button>
+          </div>
+        </form>
+        <div class="thanks" id="thanks" role="status">
+          <h3 class="h2">Спасибо!<br>Скоро свяжемся</h3>
+          <p class="note">Заявка принята. Напишем вам в Telegram или WhatsApp в течение рабочего дня.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot">
+    <div>
+      <a href="#top" class="logo">biz<span class="dot"></span><span class="light">studio</span></a>
+      <p class="req">ИП <span class="ph">[ФИО]</span>, ИИН <span class="ph">[—]</span><br>г. <span class="ph">[город]</span>, Казахстан</p>
+    </div>
+    <div><h4>Контакты</h4><ul>
+      <li><a href="https://t.me/">Telegram <span class="ph">[@—]</span></a></li>
+      <li><a href="#">WhatsApp <span class="ph">[+7 —]</span></a></li>
+      <li><a href="#">Instagram <span class="ph">[@—]</span></a></li>
+      <li><a href="#">Email <span class="ph">[—]</span></a></li>
+    </ul></div>
+    <div><h4>Разделы</h4><ul>
+      <li><a href="#services">Услуги</a></li><li><a href="#prices">Цены</a></li><li><a href="#process">Процесс</a></li><li><a href="#support">Поддержка</a></li>
+    </ul></div>
+    <div><h4>Документы</h4><ul>
+      <li><a href="#">Договор-оферта</a></li><li><a href="#">Политика конфиденциальности</a></li><li><a href="#">Вход в личный кабинет →</a></li>
+    </ul></div>
+    <div class="foot-bot"><span>© 2026 Biz Studio · bizstudio.kz</span><span>Серверы в Казахстане · Hoster.kz</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  // theme
+  try{var t=localStorage.getItem('bz-theme'); if(t) root.setAttribute('data-theme',t);}catch(e){}
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('bz-theme',next);}catch(e){}
+  });
+  // burger
+  var b=document.getElementById('burger'), m=document.getElementById('mnav');
+  function closeMenu(){m.classList.remove('open');b.setAttribute('aria-expanded','false');}
+  b.addEventListener('click',function(){var o=m.classList.toggle('open');b.setAttribute('aria-expanded',o);});
+  m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+  // reveal
+  var els=document.querySelectorAll('.reveal,.fade');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(el){io.observe(el);});
+  } else els.forEach(function(el){el.classList.add('in');});
+  // package buttons prefill comment
+  document.querySelectorAll('[data-pick]').forEach(function(a){a.addEventListener('click',function(){
+    var f=document.getElementById('f-msg'); f.value=a.dataset.pick+(f.value?'. '+f.value:'');
+  });});
+  // form
+  var form=document.getElementById('leadForm'), err=document.getElementById('formErr');
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var name=form.name.value.trim(), contact=form.contact.value.trim(), ok=document.getElementById('f-consent').checked;
+    form.name.classList.toggle('bad',!name); form.contact.classList.toggle('bad',!contact);
+    if(!name||!contact){err.textContent='Укажите имя и способ связи';return;}
+    if(!ok){err.textContent='Нужно согласие на обработку данных';return;}
+    err.textContent='';
+    // TODO: отправка заявки в Telegram-бот студии через свой бэкенд
+    form.style.display='none';
+    var th=document.getElementById('thanks'); th.classList.add('show'); th.scrollIntoView({block:'center'});
+  });
+})();
+</script>
+</body>
+</html>
